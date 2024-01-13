@@ -1,6 +1,6 @@
 import svgwrite
 
-def create_square(filename, side_length, canvas_size):
+def create_dwg(filename, side_length, canvas_size):
     # Create an SVG drawing instance with a specified canvas size.
     # canvas_size should be a tuple in the format (width, height)
     dwg = svgwrite.Drawing(filename, size=canvas_size, profile='tiny')
@@ -12,4 +12,4 @@ def create_square(filename, side_length, canvas_size):
     dwg.save()
 
 # Usage
-create_square('square.svg', 100, (200, 200))
+create_dwg('square.svg', 100, (200, 200))
