@@ -22,7 +22,6 @@ class Specs(Enum):
             raise ValueError(f"Invalid paper size: {paper_type}")
 
 # Example usage
-print(Specs.get_size("A4"))  # (210, 297)
-print(Specs.get_size("A0"))  # (841, 1189)
-
+# print(Specs.A4)  # (210, 297)
+# print(Specs.A0)  # (841, 1189)
 
