@@ -4,7 +4,7 @@ import string
 import random
 
 class SVGCreator:
-    def __init__(self, stroke_width, stroke_color, page_padding_mm, border_thk_mm, background_color='darkblue', divs_n = 3, divs_m = 5):
+    def __init__(self, stroke_width, stroke_color, page_padding_mm, border_thk_mm, background_color='darkblue'):
         """
         Initialize the SVGCreator with stroke properties and background color.
 
@@ -14,8 +14,8 @@ class SVGCreator:
         """
         self.page_padding_mm = page_padding_mm
         self.border_thk_mm = border_thk_mm
-        self.divs_n = divs_n
-        self.divs_m = divs_m
+        self.divs_n = 3
+        self.divs_m = 4
         self.stroke_width = stroke_width
         self.stroke_color = stroke_color
         self.background_color = background_color
@@ -59,7 +59,7 @@ class SVGCreator:
            y_center = round((point1[1] + point2[1]) / 2, 5)
            return (x_center, y_center)
 
-    def add_text(self, dwg, text, position_mm, font_size_mm='10mm'):
+    def add_text(self, dwg, text, position_mm, font_size_mm='6mm'):
         """
         Add text to the SVG drawing.
         """
@@ -99,7 +99,7 @@ class SVGCreator:
         ))
 
 
-    def create_svg_with_rectangle(self, filename, canvas_size_mm):
+    def create_svg_with_rectangle(self, filename, canvas_size_mm, divs_n = 3, divs_m = 5):
         """
         Create an SVG file with a square drawn inside.
 
@@ -108,6 +108,9 @@ class SVGCreator:
         :param square_size_mm: int, the length of the side of the square in millimeters.
         :param square_position_mm: tuple, the top-left position of the square in millimeters (x, y).
         """
+        self.divs_n = divs_n
+        self.divs_m = divs_m
+
         # Convert sizes and position to mm
         canvas_size = self.from_mm(canvas_size_mm)
         # Create an SVG drawing instance with the specified canvas size in mm
@@ -232,8 +235,12 @@ class SVGCreator:
         dwg.save()
 
 
-svg_creator = SVGCreator(stroke_width=3, stroke_color='white', page_padding_mm=50, border_thk_mm=30, background_color='red', divs_n = 4, divs_m = 5)
+svg_creator = SVGCreator(stroke_width=3, stroke_color='white', page_padding_mm=15, border_thk_mm=5, background_color='red')
 
-svg_creator.create_svg_with_rectangle('square_with_background.svg', Specs.A1.value[::-1])
+svg_creator.create_svg_with_rectangle('a0.svg', Specs.A1.value[::-1], divs_n = 8, divs_m = 12)
+svg_creator.create_svg_with_rectangle('a1.svg', Specs.A1.value[::-1], divs_n = 6, divs_m = 8)
+svg_creator.create_svg_with_rectangle('a2.svg', Specs.A1.value[::-1], divs_n = 4, divs_m = 6)
+svg_creator.create_svg_with_rectangle('a3.svg', Specs.A1.value[::-1], divs_n = 3, divs_m = 4)
+svg_creator.create_svg_with_rectangle('a4.svg', Specs.A1.value[::-1], divs_n = 2, divs_m = 3)
 
 

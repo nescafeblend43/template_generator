@@ -25,3 +25,25 @@ class Specs(Enum):
 # print(Specs.A4)  # (210, 297)
 # print(Specs.A0)  # (841, 1189)
 
+# A4
+# AB/CD, 2 
+# 13/46, 3
+
+# A3
+# AC/CF , 3
+# 14/58, 4
+
+# A2
+# AD/EH, 4
+# 16/712
+
+# A1
+# AF/GM, 6
+# 18/916, 8
+
+# A0
+# AH/JR, 8
+# 112/1324, 12
+
+
+# 16txt
