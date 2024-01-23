@@ -19,14 +19,13 @@ class SVGCreator:
         self.stroke_width = stroke_width
         self.stroke_color = stroke_color
         self.background_color = background_color
-
+        self.font_size_mm=4
         self.font_family="Arial"
 
 
     def get_random_color(self):
         """
         Generate a random color in hexadecimal format.
-
         :return: str, the random color in hexadecimal format.
         """
         r = random.randint(0, 255)
@@ -39,15 +38,17 @@ class SVGCreator:
         """
         Adjust the Y-coordinate of a point by a given offset.
         """
+        adjusted_y_position =float(self.font_size_mm-1)  / 2
         x, y = original_coords
-        return (x, y - offset)
+        return (x, y - offset+adjusted_y_position)
     
     def offset_x(self, original_coords, offset):
         """
         Adjust the Y-coordinate of a point by a given offset.
         """
+        adjusted_y_position =float(self.font_size_mm-1) / 2
         x, y = original_coords
-        return (x- offset, y )
+        return (x- offset, y +adjusted_y_position)
 
     def from_mm(self, input_tuple):
             x, y = input_tuple
@@ -59,7 +60,7 @@ class SVGCreator:
            y_center = round((point1[1] + point2[1]) / 2, 5)
            return (x_center, y_center)
 
-    def add_text(self, dwg, text, position_mm, font_size_mm='6mm'):
+    def add_text(self, dwg, text, position_mm):
         """
         Add text to the SVG drawing.
         """
@@ -67,7 +68,7 @@ class SVGCreator:
             text, 
             insert=self.from_mm(position_mm),
             fill=self.stroke_color,
-            font_size=font_size_mm,
+            font_size=str(self.font_size_mm)+'mm',
             font_family=self.font_family,
             text_anchor="middle"  
         ))
@@ -77,7 +78,6 @@ class SVGCreator:
         """
         Add box to the SVG drawing.
         """
-
         dwg.add(dwg.rect(
             insert=self.from_mm(position_mm), 
             size=self.from_mm(size_mm), 
@@ -153,13 +153,11 @@ class SVGCreator:
             letter = string.ascii_uppercase[self.divs_n-1+(i+1)]
             self.add_text(dwg, letter, self.center(self.offset_y(start_u, ptc/2), self.offset_y(end_u, ptc/2)))
 
- 
             start_l =(start_x, start_y-pitch_y)
             end_l = (start_x + self.border_thk_mm, start_y-pitch_y)
             self.add_line(dwg, start_l, end_l)      
             letter = string.ascii_uppercase[self.divs_n-(i+1)]
             self.add_text(dwg, letter, self.center(self.offset_y(start_l, -ptc/2), self.offset_y(end_l, -ptc/2)))
-
 
             start_u_r =(canvas_size_mm[0]-(start_x + self.border_thk_mm), start_y+pitch_y)
             end_u_r = (canvas_size_mm[0]-(start_x), start_y+pitch_y)
@@ -235,7 +233,7 @@ class SVGCreator:
         dwg.save()
 
 
-svg_creator = SVGCreator(stroke_width=3, stroke_color='white', page_padding_mm=15, border_thk_mm=5, background_color='red')
+svg_creator = SVGCreator(stroke_width=2, stroke_color='white', page_padding_mm=15, border_thk_mm=5, background_color='red')
 
 svg_creator.create_svg_with_rectangle('a0.svg', Specs.A1.value[::-1], divs_n = 8, divs_m = 12)
 svg_creator.create_svg_with_rectangle('a1.svg', Specs.A1.value[::-1], divs_n = 6, divs_m = 8)
